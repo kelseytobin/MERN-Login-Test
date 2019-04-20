@@ -8,6 +8,15 @@ const users = require("./routes/api/users");
 //initialize express
 const app = express();
 
+//routes
+app.use("/api/users", users);
+
+//passport middleware
+app.use(passport.initialize());
+
+//passport config
+require("./config/passport") (passport);
+
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -31,14 +40,6 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch(err => console.log(err));
 
-//passport middleware
-app.use(passport.initialize());
-
-//passport config
-require("./config/passport") (passport);
-
-//routes
-app.use("/api/users", users);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server is now
