@@ -8,6 +8,14 @@ const users = require("./routes/api/users");
 //initialize express
 const app = express();
 
+// Bodyparser middleware
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
+
 //routes
 app.use("/api/users", users);
 
@@ -17,13 +25,6 @@ app.use(passport.initialize());
 //passport config
 require("./config/passport") (passport);
 
-// Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(bodyParser.json());
 
 // DB Config
 const db = require("./config/key").mongoURI;
